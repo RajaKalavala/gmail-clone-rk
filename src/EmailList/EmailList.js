@@ -3,12 +3,16 @@ import {
   ArrowDropDown,
   ChevronLeft,
   ChevronRight,
+  Inbox,
   KeyboardHide,
+  LocalOffer,
   MoreVert,
+  People,
   Redo,
   Settings,
 } from "@material-ui/icons";
 import React from "react";
+import Section from "../Section/Section";
 import "./EmailList.css";
 
 function EmailList() {
@@ -44,7 +48,11 @@ function EmailList() {
         </div>
       </div>
 
-      <div className="emailList__section"></div>
+      <div className="emailList__section">
+        <Section Icon={Inbox} title="primary" color="red" selected />
+        <Section Icon={People} title="Social" color="blue" />
+        <Section Icon={LocalOffer} title="Promotions" color="green" />
+      </div>
     </div>
   );
 }
