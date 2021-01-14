@@ -15,11 +15,15 @@ import {
   Person,
   Phone,
 } from "@material-ui/icons";
+import { useDispatch } from "react-redux";
+import { openSendMessage } from "../features/mailSlice";
 
 function Sidebar() {
+  const dispatch = useDispatch();
   return (
     <div className="sidebar">
       <Button
+        onClick={() => dispatch(openSendMessage())}
         className="sidebar__compose"
         startIcon={<AddIcon fontSize="large" />}
       >
