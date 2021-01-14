@@ -12,6 +12,7 @@ import {
   Settings,
 } from "@material-ui/icons";
 import React from "react";
+import EmailRow from "../EmailRow/EmailRow";
 import Section from "../Section/Section";
 import "./EmailList.css";
 
@@ -52,6 +53,29 @@ function EmailList() {
         <Section Icon={Inbox} title="primary" color="red" selected />
         <Section Icon={People} title="Social" color="blue" />
         <Section Icon={LocalOffer} title="Promotions" color="green" />
+      </div>
+
+      <div className="emailList__list">
+        <EmailRow
+          title="First Title"
+          subject="First Subject "
+          description="First description"
+          time="10pm"
+        />
+
+        <EmailRow
+          title="Title2"
+          subject="Second Subject "
+          description="First description"
+          time="10pm"
+        />
+
+        <EmailRow
+          title="Third Title"
+          subject="Third Subject "
+          description="Third description adding texts Third description adding texts Third description adding texts"
+          time="10pm"
+        />
       </div>
     </div>
   );
