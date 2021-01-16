@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const mailSlice = createSlice({
-  name: "counter",
+  name: "mail",
   initialState: {
     selectedMail: null,
     sendMessageIsOpen: false,

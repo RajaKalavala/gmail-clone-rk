@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import Header from "./Header";
 import Sidebar from "./Sidebar/Sidebar";
@@ -6,31 +6,55 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Mail from "./Mail/Mail";
 import EmailList from "./EmailList/EmailList";
 import SendMail from "./SendMail/SendMail";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectSendMessageIsOpen } from "./features/mailSlice";
+import Login from "./Login/Login";
+import { login, selectUser } from "./features/userSlice";
+import { auth } from "./firebase";
 
 function App() {
   const sendMessageIsOpen = useSelector(selectSendMessageIsOpen);
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        //user login
+        dispatch(
+          login({
+            displayName: user.displayName,
+            email: user.email,
+            photoUrl: user.photoURL,
+          })
+        );
+      }
+    });
+  }, []);
 
   return (
     <Router>
-      <div className="app">
-        <Header></Header>
-        <div className="app__body">
-          <Sidebar />
+      {!user ? (
+        <Login />
+      ) : (
+        <div className="app">
+          <Header></Header>
+          <div className="app__body">
+            <Sidebar />
 
-          <Switch>
-            <Route path="/mail">
-              <Mail />
-            </Route>
-            <Route path="/">
-              <EmailList />
-            </Route>
-          </Switch>
+            <Switch>
+              <Route path="/mail">
+                <Mail />
+              </Route>
+              <Route path="/">
+                <EmailList />
+              </Route>
+            </Switch>
+          </div>
+
+          {sendMessageIsOpen && <SendMail />}
         </div>
-
-        {sendMessageIsOpen && <SendMail />}
-      </div>
+      )}
     </Router>
   );
 }
